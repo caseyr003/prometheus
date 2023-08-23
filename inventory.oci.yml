@@ -1,0 +1,7 @@
+plugin: oracle.oci.oci
+
+config_file: ~/.oci/config
+config_profile: DEFAULT
+
+groups:
+  observer: "'observer' == freeform_tags.type"

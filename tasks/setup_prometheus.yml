@@ -1,0 +1,23 @@
+---
+- name: download prometheus
+  ansible.builtin.unarchive:
+    src: https://github.com/prometheus/prometheus/releases/download/v2.46.0/prometheus-2.46.0.linux-amd64.tar.gz
+    dest: /home/ubuntu/
+    remote_src: yes
+
+- name: copy prometheus config file
+  ansible.builtin.copy:
+    src: ./tasks/resources/prometheus.yml
+    dest: /home/ubuntu/
+
+- name: copy prometheus service file
+  ansible.builtin.copy:
+    src: ./tasks/resources/prometheus.service
+    dest: /etc/systemd/system/
+
+- name: start prometheus
+  ansible.builtin.systemd:
+    state: started
+    name: prometheus
+    daemon_reload: yes
+    enabled: true

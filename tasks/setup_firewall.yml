@@ -1,0 +1,26 @@
+---
+- name: enable ufw
+  community.general.ufw:
+    state: enabled
+    policy: allow
+
+- name: allow access to tcp port 22
+  community.general.ufw:
+    rule: allow
+    port: 22
+    proto: tcp
+
+- name: allow access to tcp port 9090
+  community.general.ufw:
+    rule: allow
+    port: 9090
+    proto: tcp
+
+- name: allow access to tcp port 9100
+  community.general.ufw:
+    rule: allow
+    port: 9100
+    proto: tcp
+
+- name: reboot
+  ansible.builtin.reboot:

@@ -1,0 +1,28 @@
+---
+# Install prometheus on servers tagged with observer
+- name: setup prometheus observer
+  hosts: observer
+  vars:
+    ansible_user: ubuntu
+  become: yes
+
+  tasks:
+    - name: setup prometheus
+      ansible.builtin.import_tasks:
+        file: ./tasks/setup_prometheus.yml
+
+# Configure firewall using ufw and install node exporter on all instances
+- name: setup node exporter
+  hosts: all
+  vars:
+    ansible_user: ubuntu
+  become: yes
+
+  tasks:
+    - name: setup node exporter
+      ansible.builtin.import_tasks:
+        file: ./tasks/setup_node_exporter.yml
+
+    - name: setup firewall
+      ansible.builtin.import_tasks:
+        file: ./tasks/setup_firewall.yml

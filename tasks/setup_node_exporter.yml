@@ -1,0 +1,18 @@
+---
+- name: download node exporter
+  ansible.builtin.unarchive:
+    src: https://github.com/prometheus/node_exporter/releases/download/v1.6.1/node_exporter-1.6.1.linux-amd64.tar.gz
+    dest: /home/ubuntu
+    remote_src: yes
+
+- name: copy node exporter service file
+  ansible.builtin.copy:
+    src: ./tasks/resources/node_exporter.service
+    dest: /etc/systemd/system/
+
+- name: start node_exporter
+  ansible.builtin.systemd:
+    state: started
+    name: node_exporter
+    daemon_reload: yes
+    enabled: true
